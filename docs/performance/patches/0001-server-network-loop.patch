@@ -1,0 +1,232 @@
+diff --git a/src/net/tcpserver.cpp b/src/net/tcpserver.cpp
+index d35947b..1df4a2d 100644
+--- a/src/net/tcpserver.cpp
++++ b/src/net/tcpserver.cpp
+@@ -174,8 +174,27 @@ void CTCPServer::Stop()
+  * Listen and wait for incoming data
+  */
+ void CTCPServer::Listen()
+-{	
+-	int result = poll(m_fds.data(), m_fds.size(), 1000);
++{
++	// Sync the poll events with the actual state of every client's send queue.
++	//
++	// Old code asked for POLLWRNORM on every client unconditionally. On Windows a
++	// TCP socket is *always* writable while its send buffer has room, so WSAPoll()
++	// returned immediately on every call and this thread spun at ~100% of a core,
++	// hammering the global critical section even when the server was idle.
++	// Now writability is requested only when there is something to send.
++	for (size_t i = 1; i < m_fds.size(); i++)
++	{
++		IExtendedSocket* socket = GetExSocketBySocket(m_fds[i].fd);
++		m_fds[i].events = POLLRDNORM | ((socket && !socket->GetPacketsToSend().empty()) ? POLLWRNORM : 0);
++		m_fds[i].revents = 0;
++	}
++
++	// No clients: the listening socket only reports POLLRDNORM, so a long timeout
++	// is free. With clients connected we wake up often (10 ms) so that a packet
++	// queued right after the pass above is still flushed quickly.
++	int pollTimeout = (m_fds.size() > 1) ? 10 : 1000;
++
++	int result = poll(m_fds.data(), m_fds.size(), pollTimeout);
+ 	if (result == SOCKET_ERROR)
+ 	{
+ 		Logger().Error("poll() failed with error: %d\n", GetNetworkError());
+@@ -193,11 +212,14 @@ void CTCPServer::Listen()
+ 	if (m_pCriticalSection)
+ 		m_pCriticalSection->Enter();
+ 
+-	for (auto it = m_fds.begin(); it != m_fds.end(); it++)
++	// Index based loop: Accept()/DisconnectClient() modify m_fds, and the old code
++	// restarted the whole pass from m_fds.begin() after each of those events,
++	// which made connection/disconnection bursts O(n^2).
++	for (size_t i = 0; i < m_fds.size(); i++)
+ 	{
+-		if (it->revents & POLLRDNORM)
++		if (m_fds[i].revents & POLLRDNORM)
+ 		{
+-			if (it->fd == m_Socket)
++			if (m_fds[i].fd == m_Socket)
+ 			{
+ 				IExtendedSocket* socket = Accept(m_nNextClientIndex);
+ 				if (!socket)
+@@ -209,8 +231,7 @@ void CTCPServer::Listen()
+ 				{
+ 					if (!m_pListener->OnTCPConnectionCreated(socket))
+ 					{
+-						// start cycle from the beginning after disconnecting the IP banned client, probably not the best solution
+-						it = m_fds.begin();
++						// client was rejected and DisconnectClient() removed it from m_fds
+ 						continue;
+ 					}
+ 				}
+@@ -219,18 +240,16 @@ void CTCPServer::Listen()
+ 
+ 				WSAPOLLFD fd;
+ 				fd.fd = socket->GetSocket();
+-				fd.events = POLLRDNORM | POLLWRNORM;
++				fd.events = POLLRDNORM;
+ 				fd.revents = 0;
+ 				m_fds.push_back(fd);
+ 
+-				// start cycle from the beginning after pushing to vector, probably not the best solution
+-				it = m_fds.begin();
+ 				continue;
+ 			}
+ 			// read from client
+ 			else
+ 			{
+-				IExtendedSocket* socket = GetExSocketBySocket(it->fd);
++				IExtendedSocket* socket = GetExSocketBySocket(m_fds[i].fd);
+ 				if (!socket)
+ 					continue;
+ 
+@@ -238,11 +257,11 @@ void CTCPServer::Listen()
+ 				int readResult = socket->GetReadResult();
+ 				if (readResult == 0)
+ 				{
+-					it->revents |= POLLHUP;
++					m_fds[i].revents |= POLLHUP;
+ 				}
+ 				else if (readResult == SOCKET_ERROR)
+ 				{
+-					it->revents |= POLLERR;
++					m_fds[i].revents |= POLLERR;
+ 
+ 					if (m_pListener)
+ 						m_pListener->OnTCPError(0);
+@@ -253,7 +272,7 @@ void CTCPServer::Listen()
+ 					// exclude case when message is not fully read
+ 					if (!socket->GetMsg())
+ 					{
+-						it->revents |= POLLERR;
++						m_fds[i].revents |= POLLERR;
+ 
+ 						if (m_pListener)
+ 							m_pListener->OnTCPError(0);
+@@ -274,45 +293,49 @@ void CTCPServer::Listen()
+ 			}
+ 		}
+ 
+-		// write to client
+-		if (it->revents & POLLWRNORM && !(it->revents & (POLLERR | POLLHUP)))
++		// write to client: drain the whole send queue instead of sending a single
++		// packet per poll cycle (the old code could only push one packet per wakeup)
++		if ((m_fds[i].revents & POLLWRNORM) && !(m_fds[i].revents & (POLLERR | POLLHUP)))
+ 		{
+-			IExtendedSocket* socket = GetExSocketBySocket(it->fd);
+-			if (!socket)
+-				continue;
+-
+-			if (socket->GetPacketsToSend().size())
++			IExtendedSocket* socket = GetExSocketBySocket(m_fds[i].fd);
++			if (socket)
+ 			{
+-				CSendPacket* msg = socket->GetPacketsToSend().at(0);
+-				int sendResult = socket->Send(msg, true);
+-				if (sendResult <= 0)
++				std::vector<CSendPacket*>& queue = socket->GetPacketsToSend();
++				while (!queue.empty())
+ 				{
+-					int error = GetNetworkError();
+-					if (error != WSAEWOULDBLOCK)
++					int sendResult = socket->Send(queue.front(), true);
++					if (sendResult <= 0)
+ 					{
+-						it->revents |= POLLERR;
++						int error = GetNetworkError();
++						if (error != WSAEWOULDBLOCK)
++						{
++							m_fds[i].revents |= POLLERR;
+ 
+-						Logger().Warn("An error occurred while sending packet from queue: WSAGetLastError: %d, queue.size: %d\n", error, socket->GetPacketsToSend().size());
++							Logger().Warn("An error occurred while sending packet from queue: WSAGetLastError: %d, queue.size: %d\n", error, (int)queue.size());
+ 
+-						if (m_pListener)
+-							m_pListener->OnTCPError(0);
++							if (m_pListener)
++								m_pListener->OnTCPError(0);
++						}
++
++						break;
+ 					}
+-				}
+-				else
+-				{
+-					socket->GetPacketsToSend().erase(socket->GetPacketsToSend().begin());
++
++					queue.erase(queue.begin());
+ 				}
+ 			}
+ 		}
+ 
+ 		// client closed the connection or had a socket error or sent an invalid packet or sent wrong sequence or decryption failed
+-		if (it->revents & (POLLERR | POLLHUP) && it->fd != m_Socket)
++		if ((m_fds[i].revents & (POLLERR | POLLHUP)) && m_fds[i].fd != m_Socket)
+ 		{
+-			IExtendedSocket* socket = GetExSocketBySocket(it->fd);
++			IExtendedSocket* socket = GetExSocketBySocket(m_fds[i].fd);
+ 			if (socket)
+ 				DisconnectClient(socket);
+ 
+-			it = m_fds.begin(); // not the best solution
++			// DisconnectClient() erased this entry, so the next client is now at index i
++			if (i > 0)
++				i--;
++
+ 			continue;
+ 		}
+ 	}
+@@ -386,6 +409,7 @@ IExtendedSocket* CTCPServer::Accept(unsigned int id)
+ 	newSocket->SetIP(ip);
+ 
+ 	m_Clients.push_back(newSocket);
++	m_ClientsBySocket[clientSocket] = newSocket;
+ 
+ 	// send server connected message
+ 	static const string connectedMsg = TCP_CONNECTED_MESSAGE;
+@@ -426,13 +450,8 @@ IExtendedSocket* CTCPServer::Accept(unsigned int id)
+  */
+ IExtendedSocket* CTCPServer::GetExSocketBySocket(SOCKET socket)
+ {
+-	for (auto s : m_Clients)
+-	{
+-		if (s->GetSocket() == socket)
+-			return s;
+-	}
+-
+-	return NULL;
++	auto it = m_ClientsBySocket.find(socket);
++	return (it != m_ClientsBySocket.end()) ? it->second : NULL;
+ }
+ 
+ /**
+@@ -460,6 +479,8 @@ void CTCPServer::DisconnectClient(IExtendedSocket* socket)
+ 		}
+ 	), m_fds.end());
+ 
++	m_ClientsBySocket.erase(s);
++
+ 	delete socket;
+ 	m_Clients.erase(remove(m_Clients.begin(), m_Clients.end(), socket), m_Clients.end());
+ }
+diff --git a/src/public/net/tcpserver.h b/src/public/net/tcpserver.h
+index 54982ab..674741a 100644
+--- a/src/public/net/tcpserver.h
++++ b/src/public/net/tcpserver.h
+@@ -7,6 +7,7 @@
+ #include <string>
+ #include <vector>
+ #include <chrono>
++#include <unordered_map>
+ 
+ class IExtendedSocket;
+ class CExtendedSocket;
+@@ -43,6 +44,7 @@ private:
+ 	CThread m_ListenThread;
+ 	unsigned int m_nNextClientIndex;
+ 	std::vector<IExtendedSocket*> m_Clients;
++	std::unordered_map<SOCKET, IExtendedSocket*> m_ClientsBySocket; // O(1) lookup by socket descriptor
+ 	IServerListenerTCP* m_pListener;
+ 	CCriticalSection* m_pCriticalSection;
+ 

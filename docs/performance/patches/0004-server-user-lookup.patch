@@ -1,0 +1,80 @@
+diff --git a/src/manager/usermanager.cpp b/src/manager/usermanager.cpp
+index b426874..bcd914d 100644
+--- a/src/manager/usermanager.cpp
++++ b/src/manager/usermanager.cpp
+@@ -1124,30 +1124,25 @@ IUser* CUserManager::AddUser(IExtendedSocket* socket, int userID, const string&
+ 	if ((int)m_Users.size() >= g_pServerConfig->maxPlayers)
+ 		return NULL;
+ 
+-	m_Users.push_back(new CUser(socket, userID, userName));
+-	return m_Users.back();
++	IUser* user = new CUser(socket, userID, userName);
++
++	m_Users.push_back(user);
++	m_UsersById[userID] = user;
++	m_UsersBySocket[socket] = user;
++
++	return user;
+ }
+ 
+ IUser* CUserManager::GetUserById(int userId)
+ {
+-	for (auto u : m_Users)
+-	{
+-		if (u->GetID() == userId)
+-			return u;
+-	}
+-
+-	return NULL;
++	auto it = m_UsersById.find(userId);
++	return (it != m_UsersById.end()) ? it->second : NULL;
+ }
+ 
+ IUser* CUserManager::GetUserBySocket(IExtendedSocket* socket)
+ {
+-	for (auto u : m_Users)
+-	{
+-		if (u->GetExtendedSocket() == socket)
+-			return u;
+-	}
+-
+-	return NULL;
++	auto it = m_UsersBySocket.find(socket);
++	return (it != m_UsersBySocket.end()) ? it->second : NULL;
+ }
+ 
+ IUser* CUserManager::GetUserByUsername(const string& username)
+@@ -1199,6 +1194,9 @@ bool CUserManager::RemoveUserInternal(IUser* user)
+ {
+ 	m_Users.erase(remove(begin(m_Users), end(m_Users), user), end(m_Users));
+ 
++	m_UsersById.erase(user->GetID());
++	m_UsersBySocket.erase(user->GetExtendedSocket());
++
+ 	CleanUpUser(user);
+ 	delete user;
+ 
+diff --git a/src/manager/usermanager.h b/src/manager/usermanager.h
+index 3054001..1664344 100644
+--- a/src/manager/usermanager.h
++++ b/src/manager/usermanager.h
+@@ -5,6 +5,8 @@
+ #include "user/user.h"
+ #include "manager/manager.h"
+ 
++#include <unordered_map>
++
+ class CUserManager : public CBaseManager<IUserManager>
+ {
+ public:
+@@ -92,6 +94,10 @@ private:
+ 	void OnClassModLoadOut(CReceivePacket* msg, IUser* user);
+ 
+ 	std::vector<IUser*> m_Users;
++	// indexes for O(1) lookups: packet handlers call GetUserBySocket/GetUserById
++	// for every single incoming packet, and the old linear search made that O(n)
++	std::unordered_map<int, IUser*> m_UsersById;
++	std::unordered_map<IExtendedSocket*, IUser*> m_UsersBySocket;
+ 	std::vector<CUserInventoryItem> m_DefaultItems;
+ 	std::vector<int> m_ZombieWarWeaponList;
+ 	std::vector<RandomWeapon> m_RandomWeaponList;
