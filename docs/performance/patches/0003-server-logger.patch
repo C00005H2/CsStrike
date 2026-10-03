@@ -1,0 +1,95 @@
+diff --git a/src/common/logger.cpp b/src/common/logger.cpp
+index e38a7df..fa2b530 100644
+--- a/src/common/logger.cpp
++++ b/src/common/logger.cpp
+@@ -1,6 +1,7 @@
+ #include "logger.h"
+ 
+ #include <time.h>
++#include <stdio.h>
+ 
+ #ifdef _WIN32
+ #include <direct.h> // getcwd
+@@ -283,16 +284,51 @@ CFileLogger::CFileLogger(const char* filename)
+ 		pTime->tm_min,
+ 		pTime->tm_sec
+ 	);
++
++	m_pFile = NULL;
++	m_LastFlush = 0;
++
++	// open once and use a bigger buffer instead of fopen()/fclose() per log line
++	m_pFile = fopen(m_szLogPath, "a");
++	if (m_pFile)
++	{
++		setvbuf(m_pFile, NULL, _IOFBF, 64 * 1024);
++	}
++	else
++	{
++		printf("CFileLogger: can't open log file %s\n", m_szLogPath);
++	}
++}
++
++CFileLogger::~CFileLogger()
++{
++	if (m_pFile)
++	{
++		fflush(m_pFile);
++		fclose(m_pFile);
++		m_pFile = NULL;
++	}
+ }
+ 
+ void CFileLogger::LogVarg(int level, const char* msg, va_list argptr)
+ {
+-	FILE* file = fopen(m_szLogPath, "a+");
+-	if (file)
++	if (!m_pFile)
+ 	{
+-		vfprintf(file, msg, argptr);
++		m_pFile = fopen(m_szLogPath, "a");
++		if (!m_pFile)
++			return;
+ 
+-		fclose(file);
++		setvbuf(m_pFile, NULL, _IOFBF, 64 * 1024);
++	}
++
++	vfprintf(m_pFile, msg, argptr);
++
++	// make sure errors hit the disk immediately, otherwise flush at most once per second
++	time_t now = time(NULL);
++	if (level >= LOG_LEVEL_ERROR || now != m_LastFlush)
++	{
++		fflush(m_pFile);
++		m_LastFlush = now;
+ 	}
+ }
+ 
+diff --git a/src/common/logger.h b/src/common/logger.h
+index 40b4571..1423ad9 100644
+--- a/src/common/logger.h
++++ b/src/common/logger.h
+@@ -2,6 +2,7 @@
+ 
+ #include <string>
+ #include <vector>
++#include <time.h>
+ 
+ #include "thread.h"
+ 
+@@ -166,11 +167,14 @@ class CFileLogger : public CBaseLogger
+ {
+ public:
+ 	CFileLogger(const char* filename);
++	~CFileLogger();
+ 
+ 	virtual void LogVarg(int level, const char* msg, va_list argptr);
+ 
+ private:
+ 	char m_szLogPath[MAX_PATH];
++	FILE* m_pFile;      // kept open: opening/closing the file for every line is very expensive
++	time_t m_LastFlush; // throttle flushes, except for errors
+ };
+ 
+ /**

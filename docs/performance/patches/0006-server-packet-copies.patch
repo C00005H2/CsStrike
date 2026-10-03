@@ -1,0 +1,50 @@
+diff --git a/src/common/buffer.cpp b/src/common/buffer.cpp
+index 5bdc8b4..025e1c2 100644
+--- a/src/common/buffer.cpp
++++ b/src/common/buffer.cpp
+@@ -21,6 +21,12 @@ void Buffer::setBuffer(std::vector<unsigned char>& _buffer) {
+ const std::vector<unsigned char>& Buffer::getBuffer() const {
+ 	return buffer;
+ }
++void Buffer::append(const unsigned char* data, size_t len) {
++	buffer.insert(buffer.end(), data, data + len);
++}
++void Buffer::reserve(size_t size) {
++	buffer.reserve(size);
++}
+ void Buffer::clear() {
+ 	buffer.clear();
+ 	readOffset = 0;
+diff --git a/src/common/buffer.h b/src/common/buffer.h
+index 456c6fd..ed7b8e1 100644
+--- a/src/common/buffer.h
++++ b/src/common/buffer.h
+@@ -10,6 +10,8 @@ public:
+ 
+ 	void setBuffer(std::vector<unsigned char>&);
+ 	const std::vector<unsigned char>& getBuffer() const;
++	void append(const unsigned char* data, size_t len);
++	void reserve(size_t size);
+ 	void clear();
+ 
+ 	std::string byteStr(bool LE = true) const;
+diff --git a/src/net/extendedsocket.cpp b/src/net/extendedsocket.cpp
+index b380300..bc84738 100644
+--- a/src/net/extendedsocket.cpp
++++ b/src/net/extendedsocket.cpp
+@@ -294,12 +294,9 @@ CReceivePacket* CExtendedSocket::Read()
+ 			}
+ 		}
+ 
+-		// append read data to packet buffer
+-		Buffer& buf = m_pMsg->GetData();
+-		/// @todo: rewrite
+-		vector<unsigned char> vecBuf = buf.getBuffer();
+-		vecBuf.insert(vecBuf.end(), packetDataBuf.begin(), packetDataBuf.end());
+-		buf.setBuffer(vecBuf);
++		// append read data to packet buffer (in place: the old code copied the
++		// whole packet buffer twice for every read)
++		m_pMsg->GetData().append(packetDataBuf.data(), packetDataBuf.size());
+ 
+ 		// if not full message read
+ 		if (m_nPacketReceivedSize < m_pMsg->GetLength())

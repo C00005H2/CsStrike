@@ -1,0 +1,83 @@
+diff --git a/src/manager/userdatabase_sqlite.cpp b/src/manager/userdatabase_sqlite.cpp
+index ed5fefb..5a84b5c 100644
+--- a/src/manager/userdatabase_sqlite.cpp
++++ b/src/manager/userdatabase_sqlite.cpp
+@@ -49,6 +49,17 @@ bool CUserDatabaseSQLite::Init()
+ 		m_Database.exec(OBFUSCATE("PRAGMA synchronous=OFF"));
+ 		m_Database.exec(OBFUSCATE("PRAGMA foreign_keys=ON"));
+ 
++		// Performance tweaks. By default SQLite uses a rollback journal (created and
++		// deleted for every single write) and a tiny 2 MB page cache.
++		// WAL removes the per-commit journal churn; the bigger page cache and mmap
++		// keep the hot pages of UserDatabase.db3 in RAM.
++		// Note: WAL creates UserDatabase.db3-wal/-shm files next to the database.
++		m_Database.exec(OBFUSCATE("PRAGMA journal_mode=WAL"));
++		m_Database.exec(OBFUSCATE("PRAGMA cache_size=-65536"));   // 64 MB page cache
++		m_Database.exec(OBFUSCATE("PRAGMA temp_store=MEMORY"));
++		m_Database.exec(OBFUSCATE("PRAGMA mmap_size=268435456")); // 256 MB memory map
++		m_Database.exec(OBFUSCATE("PRAGMA busy_timeout=5000"));
++
+ 		if (!CheckForTables())
+ 			return false;
+ 
+@@ -56,6 +67,60 @@ bool CUserDatabaseSQLite::Init()
+ 
+ 		ExecuteOnce();
+ 
++		// The schema only contains PRIMARY KEY/UNIQUE indexes, so every per-user
++		// query and the per-minute expiry scans used to be full table scans.
++		// "IF NOT EXISTS" makes this a cheap no-op on the next starts.
++		static const char* const kPerfIndexes[] = {
++			"CREATE INDEX IF NOT EXISTS IX_User_userName ON User(userName)",
++			"CREATE INDEX IF NOT EXISTS IX_UserCharacter_gameName ON UserCharacter(gameName)",
++			"CREATE INDEX IF NOT EXISTS IX_UserCharacter_clanID ON UserCharacter(clanID)",
++			"CREATE INDEX IF NOT EXISTS IX_UserInventory_userID ON UserInventory(userID)",
++			"CREATE INDEX IF NOT EXISTS IX_UserInventory_expiry ON UserInventory(expiryDate, inUse)",
++			"CREATE INDEX IF NOT EXISTS IX_UserLoadout_userID ON UserLoadout(userID)",
++			"CREATE INDEX IF NOT EXISTS IX_UserBuyMenu_userID ON UserBuyMenu(userID)",
++			"CREATE INDEX IF NOT EXISTS IX_UserFastBuy_userID ON UserFastBuy(userID)",
++			"CREATE INDEX IF NOT EXISTS IX_UserBookmark_userID ON UserBookmark(userID)",
++			"CREATE INDEX IF NOT EXISTS IX_UserCostumeLoadout_userID ON UserCostumeLoadout(userID)",
++			"CREATE INDEX IF NOT EXISTS IX_UserZBCostumeLoadout_userID ON UserZBCostumeLoadout(userID)",
++			"CREATE INDEX IF NOT EXISTS IX_UserAddon_userID ON UserAddon(userID)",
++			"CREATE INDEX IF NOT EXISTS IX_UserDailyReward_userID ON UserDailyReward(userID)",
++			"CREATE INDEX IF NOT EXISTS IX_UserDailyRewardItems_userID ON UserDailyRewardItems(userID)",
++			"CREATE INDEX IF NOT EXISTS IX_UserExpiryNotice_userID ON UserExpiryNotice(userID)",
++			"CREATE INDEX IF NOT EXISTS IX_UserRewardNotice_userID ON UserRewardNotice(userID)",
++			"CREATE INDEX IF NOT EXISTS IX_UserQuestProgress_userID ON UserQuestProgress(userID)",
++			"CREATE INDEX IF NOT EXISTS IX_UserQuestTaskProgress_userID ON UserQuestTaskProgress(userID)",
++			"CREATE INDEX IF NOT EXISTS IX_UserQuestEventProgress_userID ON UserQuestEventProgress(userID)",
++			"CREATE INDEX IF NOT EXISTS IX_UserQuestEventTaskProgress_userID ON UserQuestEventTaskProgress(userID)",
++			"CREATE INDEX IF NOT EXISTS IX_UserMiniGameBingoSlot_userID ON UserMiniGameBingoSlot(userID)",
++			"CREATE INDEX IF NOT EXISTS IX_UserMiniGameBingoPrizeSlot_userID ON UserMiniGameBingoPrizeSlot(userID)",
++			"CREATE INDEX IF NOT EXISTS IX_UserMiniGameWeaponReleaseCharacters_userID ON UserMiniGameWeaponReleaseCharacters(userID)",
++			"CREATE INDEX IF NOT EXISTS IX_UserMiniGameWeaponReleaseItemProgress_userID ON UserMiniGameWeaponReleaseItemProgress(userID)",
++			"CREATE INDEX IF NOT EXISTS IX_UserBanList_userID ON UserBanList(userID)",
++			"CREATE INDEX IF NOT EXISTS IX_UserSessionHistory_userID ON UserSessionHistory(userID)",
++			"CREATE INDEX IF NOT EXISTS IX_UserSurveyAnswer_userID ON UserSurveyAnswer(userID)",
++			"CREATE INDEX IF NOT EXISTS IX_UserClassMod_userID ON UserClassMod(userID)",
++			"CREATE INDEX IF NOT EXISTS IX_ClanMember_clanID ON ClanMember(clanID)",
++			"CREATE INDEX IF NOT EXISTS IX_ClanStorageItem_clanID ON ClanStorageItem(clanID)",
++			"CREATE INDEX IF NOT EXISTS IX_ClanStorageItem_expiry ON ClanStorageItem(itemDuration)",
++			"CREATE INDEX IF NOT EXISTS IX_ClanStoragePage_clanID ON ClanStoragePage(clanID)",
++			"CREATE INDEX IF NOT EXISTS IX_ClanChronicle_clanID ON ClanChronicle(clanID)",
++			"CREATE INDEX IF NOT EXISTS IX_ClanInvite_clanID ON ClanInvite(clanID)",
++			"CREATE INDEX IF NOT EXISTS IX_ClanMemberRequest_clanID ON ClanMemberRequest(clanID)",
++			"CREATE INDEX IF NOT EXISTS IX_SuspectAction_hwid ON SuspectAction(hwid)",
++		};
++
++		for (auto indexQuery : kPerfIndexes)
++		{
++			try
++			{
++				m_Database.exec(indexQuery);
++			}
++			catch (exception& e)
++			{
++				Logger().Warn(OBFUSCATE("CUserDatabaseSQLite::Init: failed to create index '%s': %s\n"), indexQuery, e.what());
++			}
++		}
++
+ 		m_bInited = true;
+ 	}
+ 
