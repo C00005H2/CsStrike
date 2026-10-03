@@ -7,11 +7,17 @@ Start with **[PERFORMANCE_ANALYSIS.md](PERFORMANCE_ANALYSIS.md)** — it explain
 | You can… | Do this | Biggest win |
 |---|---|---|
 | rebuild the server from source | apply all patches in `patches/`, rebuild | CPU (the 100 %-core spin), logging I/O, DB, copies |
+| **not** rebuild — patch the shipped EXE | use `binpatch/CSNZ_Server.patched.exe` (or `tools/patch_csnz_server_exe.py`) — see **[PATCH_NOTES.md](PATCH_NOTES.md)** | CPU (the 100 %-core spin) + logging I/O |
 | only touch the server folder | run `sql/optimize_database.sql` while the server is stopped | database (indexes + WAL) |
 | only touch Windows | run `tools/tune-windows.ps1` as Administrator | AV/disk stalls, power plan |
 | only edit config | §6 of the analysis (`ServerConfig.json`) | login bandwidth/CPU per client |
 
-## 1. Server-side patches
+> The binary patch and the SQL script are complementary and are the combination for a
+> no-rebuild setup: patched EXE for the CPU spin + log I/O, `optimize_database.sql` for the
+> database. The source patches remain the complete fix (see PATCH_NOTES.md §3 for the
+> precise coverage matrix).
+
+## 1. Server-side patches (rebuild path)
 
 The executables in this repo are builds of **`github.com/JusicP/CSNZ_Server`**, commit `6e5275cb` (2026-09-30). The patches are unified diffs against that exact revision.
 
@@ -47,6 +53,22 @@ On Windows you can also just open the `src/` folder in Visual Studio 2019+ (CMak
 They are independent — you can apply only 0001 (the CPU fix) if you want the smallest change.
 
 > The patches were written and reviewed against the upstream sources but **not compiled** in this environment (no Windows toolchain available). Build on a copy first, then test on a staging server.
+
+## 1b. Server EXE patching (no rebuild)
+
+The shipped `CSNZ_Server.exe` can be patched directly — the network spin, the accepted-socket
+event mask and the open/close-per-log-line logging are all fixable in machine code.
+
+```bash
+python3 tools/patch_csnz_server_exe.py CSNZ_Server.exe --out CSNZ_Server_patched.exe
+```
+
+or just use the ready-made `binpatch/CSNZ_Server.patched.exe` (same size as the original,
+341 bytes differ, original untouched). Full details — what is patched, what cannot be
+patched in machine code, verification status and the staging checklist — are in
+**[PATCH_NOTES.md](PATCH_NOTES.md)**. Not covered by the binary patch: the O(1) socket map,
+the event-queue container change, the user hash maps and the packet-copy removal — those
+still need the rebuild.
 
 ## 2. Database (no rebuild needed)
 

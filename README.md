@@ -26,3 +26,8 @@ Both executables are builds of public source (`JusicP/CSNZ_Server`,
 (`docs/performance/patches/`), a database tuning script
 (`docs/performance/sql/optimize_database.sql`) and a Windows host tuning script
 (`docs/performance/tools/tune-windows.ps1`).
+
+**No rebuild available?** The shipped `CSNZ_Server.exe` can be patched directly (network
+CPU spin, socket event masks, log-file open/close per line):
+**[docs/performance/PATCH_NOTES.md](docs/performance/PATCH_NOTES.md)** and
+`docs/performance/binpatch/CSNZ_Server.patched.exe`.
