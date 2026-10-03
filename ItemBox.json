@@ -1,0 +1,224 @@
+{
+	"Version": 1,
+	"8292": {
+		"Rate": {
+			"0.45": {
+				"Grade": 1,
+				"Duration": [
+					0
+				],
+				"Items": [
+					8753
+				]
+			},
+			"0.75": {
+				"Grade": 1,
+				"Duration": [
+					-1
+				],
+				"Items": [
+					8356, // psychic harmonium
+					8258, // x-tracker
+					8221, // infinity laser fist
+					8108, // dual beretta gunslinger
+					8414 // negev ng-7 ajax
+				]
+			},
+			"3.25": {
+				"Grade": 1,
+				"Duration": [
+					0
+				],
+				"Items": [
+					8047, // Dual Sword Phantom Slayer
+					8194, // Thunder Ghost Walker
+					8143, // barret m95 white tiger
+					8110, // m3 black dragon
+					8094, // magnum launcher
+					978, // python desperado
+					959, // red dragon cannon
+					919, // blade runebreaker
+					841, // warhammer storm giant
+					8886, // ignite-10
+					809, // buffm4
+					518, // ripper
+					365 // volcano
+				]
+			},
+			"4.05": {
+				"Grade": 1,
+				"Duration": [
+					0
+				],
+				"Items": [
+					8886, // ignite-10
+					8851, // ignite-7
+					8752, // electron-v
+					8384, // Miracle Prism Sword
+					8295, // Starlight Rolling Shooter
+					8249, // Shining Heart Rod
+					8164, // Dual Sword Hellfire
+					8132, // hunter-killer x-12
+					8119, // hunter-killer x-90
+					8088, // arm torch
+					984, // bunker buster ltd
+					964, // Brick Piece S1451
+					893, // Broad Divine
+					703, // bendita
+					495 // thunderbolt
+				]
+			},
+			"6": {
+				"Grade": 1,
+				"Duration": [
+					0
+				],
+				"Items": [
+					720, // plasma grenades
+					564, // plasma gun
+					8219, // hunter-killer x-45
+					8193, // hunter-killer x-7
+					8118, // hunter-killer x-15
+					8104, // claymore
+					8078, // star chaser sr
+					921, // flame jackhammer
+					899, // tornado
+					814, // dualuzi
+					771, // newcomen
+					727, // papin
+					677, // cyclone
+					601, // savery
+					487 // oicw
+				]
+			},
+			"34.02": {
+				"Grade": 1,
+				"Duration": [
+					30
+				],
+				"Items": [
+					8356, // psychic harmonium
+					8258, // x-tracker
+					8221, // infinity laser fist
+					8108, // dual beretta gunslinger
+					8414, // negev ng-7 ajax
+					8047, // Dual Sword Phantom Slayer
+					8194, // Thunder Ghost Walker
+					8143, // barret m95 white tiger
+					8110, // m3 black dragon
+					8094, // magnum launcher
+					978, // python desperado
+					959, // red dragon cannon
+					919, // blade runebreaker
+					841, // warhammer storm giant
+					8886, // ignite-10
+					809, // buffm4
+					518, // ripper
+					365 // volcano
+				]
+			},
+			"19.98": {
+				"Grade": 1,
+				"Duration": [
+					10
+				],
+				"Items": [
+					8356, // psychic harmonium
+					8258, // x-tracker
+					8221, // infinity laser fist
+					8108, // dual beretta gunslinger
+					8414, // negev ng-7 ajax
+					8047, // Dual Sword Phantom Slayer
+					8194, // Thunder Ghost Walker
+					8143, // barret m95 white tiger
+					8110, // m3 black dragon
+					8094, // magnum launcher
+					978, // python desperado
+					959, // red dragon cannon
+					919, // blade runebreaker
+					841, // warhammer storm giant
+					8886, // ignite-10
+					809, // buffm4
+					518, // ripper
+					365 // volcano
+				]
+			},
+			"20.1": {
+				"Grade": 1,
+				"Duration": [
+					30
+				],
+				"Items": [
+					8886, // ignite-10
+					8851, // ignite-7
+					8752, // electron-v
+					8384, // Miracle Prism Sword
+					8295, // Starlight Rolling Shooter
+					8249, // Shining Heart Rod
+					8164, // Dual Sword Hellfire
+					8132, // hunter-killer x-12
+					8119, // hunter-killer x-90
+					8088, // arm torch
+					984, // bunker buster ltd
+					964, // Brick Piece S1451
+					893, // Broad Divine
+					703, // bendita
+					495, // thunderbolt
+					720, // plasma grenades
+					564, // plasma gun
+					8219, // hunter-killer x-45
+					8193, // hunter-killer x-7
+					8118, // hunter-killer x-15
+					8104, // claymore
+					8078, // star chaser sr
+					921, // flame jackhammer
+					899, // tornado
+					814, // dualuzi
+					771, // newcomen
+					727, // papin
+					677, // cyclone
+					601, // savery
+					487 // oicw
+				]
+			},
+			"11.1": {
+				"Grade": 1,
+				"Duration": [
+					10
+				],
+				"Items": [
+					8886, // ignite-10
+					8851, // ignite-7
+					8752, // electron-v
+					8384, // Miracle Prism Sword
+					8295, // Starlight Rolling Shooter
+					8249, // Shining Heart Rod
+					8164, // Dual Sword Hellfire
+					8132, // hunter-killer x-12
+					8119, // hunter-killer x-90
+					8088, // arm torch
+					984, // bunker buster ltd
+					964, // Brick Piece S1451
+					893, // Broad Divine
+					703, // bendita
+					495, // thunderbolt
+					720, // plasma grenades
+					564, // plasma gun
+					8219, // hunter-killer x-45
+					8193, // hunter-killer x-7
+					8118, // hunter-killer x-15
+					8104, // claymore
+					8078, // star chaser sr
+					921, // flame jackhammer
+					899, // tornado
+					814, // dualuzi
+					771, // newcomen
+					727, // papin
+					677, // cyclone
+					601, // savery
+					487 // oicw
+				]
+			}
+		}
+	}
+}

@@ -1,0 +1,1161 @@
+{
+	"Version": 1,
+	"1001": {
+		"Title": "LEVEL1_GIFTBOX_TITLE",
+		"Description": "LEVEL1_GIFTBOX_MSG",
+		"Localized": true,
+		"LvlRestriction": 1,
+		"Items": {
+			"1": {
+				"Count": 1,
+				"Duration": 3
+			},
+			"1002": {
+				"Count": 1,
+				"Duration": 0
+			},
+			"1030": {
+				"Count": 3,
+				"Duration": 0
+			},
+			"136": {
+				"Count": 1,
+				"Duration": 3
+			},
+			"173": {
+				"Count": 1,
+				"Duration": 0
+			},
+			"258": {
+				"Count": 5,
+				"Duration": 0
+			},
+			"32": {
+				"Count": 1,
+				"Duration": 3
+			},
+			"363": {
+				"Count": 1,
+				"Duration": 3
+			},
+			"367": {
+				"Count": 1,
+				"Duration": 3
+			},
+			"45": {
+				"Count": 1,
+				"Duration": 3
+			},
+			"5": {
+				"Count": 1,
+				"Duration": 3
+			}
+		}
+	},
+	"1002": {
+		"Title": "LEVEL4_GIFTBOX_TITLE",
+		"Description": "LEVEL4_GIFTBOX_MSG",
+		"Localized": true,
+		"LvlRestriction": 4,
+		"Items": {
+			"1003": {
+				"Count": 1,
+				"Duration": 0
+			},
+			"1030": {
+				"Count": 3,
+				"Duration": 0
+			},
+			"138": {
+				"Count": 1,
+				"Duration": 3
+			},
+			"148": {
+				"Count": 1,
+				"Duration": 3
+			},
+			"173": {
+				"Count": 3,
+				"Duration": 0
+			},
+			"24": {
+				"Count": 1,
+				"Duration": 3
+			},
+			"258": {
+				"Count": 5,
+				"Duration": 0
+			},
+			"419": {
+				"Count": 1,
+				"Duration": 30
+			}
+		}
+	},
+	"1003": {
+		"Title": "LEVEL6_GIFTBOX_TITLE",
+		"Description": "LEVEL6_GIFTBOX_MSG",
+		"Localized": true,
+		"LvlRestriction": 6,
+		"Items": {
+			"1004": {
+				"Count": 1,
+				"Duration": 0
+			},
+			"1030": {
+				"Count": 3,
+				"Duration": 0
+			},
+			"136": {
+				"Count": 1,
+				"Duration": 7
+			},
+			"158": {
+				"Count": 1,
+				"Duration": 7
+			},
+			"173": {
+				"Count": 5,
+				"Duration": 0
+			},
+			"18": {
+				"Count": 1,
+				"Duration": 7
+			},
+			"22": {
+				"Count": 1,
+				"Duration": 7
+			},
+			"259": {
+				"Count": 5,
+				"Duration": 0
+			},
+			"37": {
+				"Count": 1,
+				"Duration": 7
+			},
+			"385": {
+				"Count": 1,
+				"Duration": 7
+			},
+			"4": {
+				"Count": 1,
+				"Duration": 7
+			},
+			"418": {
+				"Count": 1,
+				"Duration": 30
+			}
+		}
+	},
+	"1004": {
+		"Title": "LEVEL8_GIFTBOX_TITLE",
+		"Description": "LEVEL8_GIFTBOX_MSG",
+		"Localized": true,
+		"LvlRestriction": 8,
+		"Items": {
+			"1005": {
+				"Count": 1,
+				"Duration": 0
+			},
+			"1030": {
+				"Count": 3,
+				"Duration": 0
+			},
+			"15": {
+				"Count": 1,
+				"Duration": 10
+			},
+			"173": {
+				"Count": 10,
+				"Duration": 0
+			},
+			"175": {
+				"Count": 1,
+				"Duration": 10
+			},
+			"176": {
+				"Count": 1,
+				"Duration": 10
+			},
+			"21": {
+				"Count": 1,
+				"Duration": 10
+			},
+			"260": {
+				"Count": 5,
+				"Duration": 0
+			},
+			"285": {
+				"Count": 1,
+				"Duration": 7
+			},
+			"286": {
+				"Count": 1,
+				"Duration": 7
+			},
+			"300": {
+				"Count": 3,
+				"Duration": 0
+			},
+			"38": {
+				"Count": 1,
+				"Duration": 10
+			},
+			"47": {
+				"Count": 1,
+				"Duration": 7
+			},
+			"55": {
+				"Count": 1,
+				"Duration": 7
+			}
+		}
+	},
+	"1005": {
+		"Title": "LEVEL11_GIFTBOX_TITLE",
+		"Description": "LEVEL11_GIFTBOX_MSG",
+		"Localized": true,
+		"LvlRestriction": 11,
+		"Items": {
+			"1006": {
+				"Count": 1,
+				"Duration": 0
+			},
+			"1030": {
+				"Count": 3,
+				"Duration": 0
+			},
+			"159": {
+				"Count": 1,
+				"Duration": 10
+			},
+			"163": {
+				"Count": 1,
+				"Duration": 10
+			},
+			"164": {
+				"Count": 1,
+				"Duration": 10
+			},
+			"173": {
+				"Count": 15,
+				"Duration": 0
+			},
+			"187": {
+				"Count": 1,
+				"Duration": 10
+			},
+			"260": {
+				"Count": 5,
+				"Duration": 0
+			},
+			"261": {
+				"Count": 1,
+				"Duration": 10
+			},
+			"300": {
+				"Count": 3,
+				"Duration": 0
+			},
+			"46": {
+				"Count": 1,
+				"Duration": 10
+			}
+		}
+	},
+	"1006": {
+		"Title": "LEVEL14_GIFTBOX_TITLE",
+		"Description": "LEVEL14_GIFTBOX_MSG",
+		"Localized": true,
+		"LvlRestriction": 14,
+		"Items": {
+			"1007": {
+				"Count": 1,
+				"Duration": 0
+			},
+			"1031": {
+				"Count": 1,
+				"Duration": 0
+			},
+			"149": {
+				"Count": 1,
+				"Duration": 10
+			},
+			"173": {
+				"Count": 20,
+				"Duration": 0
+			},
+			"197": {
+				"Count": 1,
+				"Duration": 10
+			},
+			"259": {
+				"Count": 5,
+				"Duration": 0
+			},
+			"397": {
+				"Count": 1,
+				"Duration": 10
+			},
+			"417": {
+				"Count": 1,
+				"Duration": 10
+			},
+			"48": {
+				"Count": 1,
+				"Duration": 10
+			}
+		}
+	},
+	"1007": {
+		"Title": "LEVEL18_GIFTBOX_TITLE",
+		"Description": "LEVEL18_GIFTBOX_MSG",
+		"Localized": true,
+		"LvlRestriction": 18,
+		"Items": {
+			"1008": {
+				"Count": 1,
+				"Duration": 0
+			},
+			"1031": {
+				"Count": 2,
+				"Duration": 0
+			},
+			"173": {
+				"Count": 25,
+				"Duration": 0
+			},
+			"242": {
+				"Count": 1,
+				"Duration": 10
+			},
+			"248": {
+				"Count": 1,
+				"Duration": 10
+			},
+			"259": {
+				"Count": 10,
+				"Duration": 0
+			},
+			"285": {
+				"Count": 1,
+				"Duration": 15
+			},
+			"286": {
+				"Count": 1,
+				"Duration": 15
+			},
+			"287": {
+				"Count": 1,
+				"Duration": 15
+			},
+			"288": {
+				"Count": 1,
+				"Duration": 15
+			},
+			"320": {
+				"Count": 1,
+				"Duration": 30
+			}
+		}
+	},
+	"1008": {
+		"Title": "LEVEL23_GIFTBOX_TITLE",
+		"Description": "LEVEL23_GIFTBOX_MSG",
+		"Localized": true,
+		"LvlRestriction": 23,
+		"Items": {
+			"1016": {
+				"Count": 1,
+				"Duration": 0
+			},
+			"1031": {
+				"Count": 2,
+				"Duration": 0
+			},
+			"173": {
+				"Count": 30,
+				"Duration": 0
+			},
+			"259": {
+				"Count": 10,
+				"Duration": 0
+			},
+			"260": {
+				"Count": 5,
+				"Duration": 0
+			},
+			"282": {
+				"Count": 1,
+				"Duration": 30
+			},
+			"300": {
+				"Count": 5,
+				"Duration": 0
+			},
+			"304": {
+				"Count": 1,
+				"Duration": 30
+			},
+			"321": {
+				"Count": 1,
+				"Duration": 30
+			}
+		}
+	},
+	"1016": {
+		"Title": "LEVEL28_GIFTBOX_TITLE",
+		"Description": "LEVEL28_GIFTBOX_MSG",
+		"Localized": true,
+		"LvlRestriction": 28,
+		"Items": {
+			"1017": {
+				"Count": 1,
+				"Duration": 0
+			},
+			"1031": {
+				"Count": 2,
+				"Duration": 0
+			},
+			"163": {
+				"Count": 1,
+				"Duration": 30
+			},
+			"164": {
+				"Count": 1,
+				"Duration": 30
+			},
+			"173": {
+				"Count": 35,
+				"Duration": 0
+			},
+			"175": {
+				"Count": 1,
+				"Duration": 30
+			},
+			"176": {
+				"Count": 1,
+				"Duration": 30
+			},
+			"259": {
+				"Count": 10,
+				"Duration": 0
+			},
+			"260": {
+				"Count": 5,
+				"Duration": 0
+			},
+			"300": {
+				"Count": 5,
+				"Duration": 0
+			},
+			"373": {
+				"Count": 1,
+				"Duration": 30
+			},
+			"56": {
+				"Count": 1,
+				"Duration": -1
+			}
+		}
+	},
+	"1017": {
+		"Title": "LEVEL33_GIFTBOX_TITLE",
+		"Description": "LEVEL33_GIFTBOX_MSG",
+		"Localized": true,
+		"LvlRestriction": 33,
+		"Items": {
+			"1018": {
+				"Count": 1,
+				"Duration": 0
+			},
+			"1031": {
+				"Count": 3,
+				"Duration": 0
+			},
+			"173": {
+				"Count": 40,
+				"Duration": 0
+			},
+			"259": {
+				"Count": 20,
+				"Duration": 0
+			},
+			"260": {
+				"Count": 10,
+				"Duration": 0
+			},
+			"300": {
+				"Count": 10,
+				"Duration": 0
+			},
+			"390": {
+				"Count": 1,
+				"Duration": 30
+			},
+			"393": {
+				"Count": 1,
+				"Duration": 30
+			},
+			"395": {
+				"Count": 1,
+				"Duration": 30
+			}
+		}
+	},
+	"1018": {
+		"Title": "LEVEL38_GIFTBOX_TITLE",
+		"Description": "LEVEL38_GIFTBOX_MSG",
+		"Localized": true,
+		"LvlRestriction": 38,
+		"Items": {
+			"1019": {
+				"Count": 1,
+				"Duration": 0
+			},
+			"1031": {
+				"Count": 3,
+				"Duration": 0
+			},
+			"173": {
+				"Count": 45,
+				"Duration": 0
+			},
+			"259": {
+				"Count": 20,
+				"Duration": 0
+			},
+			"260": {
+				"Count": 10,
+				"Duration": 0
+			},
+			"300": {
+				"Count": 10,
+				"Duration": 0
+			},
+			"391": {
+				"Count": 1,
+				"Duration": 30
+			},
+			"392": {
+				"Count": 1,
+				"Duration": 30
+			},
+			"394": {
+				"Count": 1,
+				"Duration": 30
+			},
+			"420": {
+				"Count": 1,
+				"Duration": -1
+			},
+			"54": {
+				"Count": 1,
+				"Duration": 30
+			}
+		}
+	},
+	"1019": {
+		"Title": "LEVEL43_GIFTBOX_TITLE",
+		"Description": "LEVEL43_GIFTBOX_MSG",
+		"Localized": true,
+		"LvlRestriction": 43,
+		"Items": {
+			"1020": {
+				"Count": 1,
+				"Duration": 0
+			},
+			"1031": {
+				"Count": 3,
+				"Duration": 0
+			},
+			"173": {
+				"Count": 50,
+				"Duration": 0
+			},
+			"246": {
+				"Count": 1,
+				"Duration": -1
+			},
+			"254": {
+				"Count": 1,
+				"Duration": -1
+			},
+			"279": {
+				"Count": 1,
+				"Duration": 30
+			},
+			"280": {
+				"Count": 1,
+				"Duration": 30
+			},
+			"281": {
+				"Count": 1,
+				"Duration": 30
+			},
+			"285": {
+				"Count": 1,
+				"Duration": 30
+			},
+			"286": {
+				"Count": 1,
+				"Duration": 30
+			},
+			"287": {
+				"Count": 1,
+				"Duration": 30
+			},
+			"288": {
+				"Count": 1,
+				"Duration": 30
+			},
+			"354": {
+				"Count": 1,
+				"Duration": 30
+			}
+		}
+	},
+	"1020": {
+		"Title": "LEVEL48_GIFTBOX_TITLE",
+		"Description": "LEVEL48_GIFTBOX_MSG",
+		"Localized": true,
+		"LvlRestriction": 48,
+		"Items": {
+			"1021": {
+				"Count": 1,
+				"Duration": 0
+			},
+			"1032": {
+				"Count": 3,
+				"Duration": 0
+			},
+			"173": {
+				"Count": 55,
+				"Duration": 0
+			},
+			"253": {
+				"Count": 1,
+				"Duration": -1
+			},
+			"259": {
+				"Count": 20,
+				"Duration": 0
+			},
+			"260": {
+				"Count": 10,
+				"Duration": 0
+			},
+			"300": {
+				"Count": 10,
+				"Duration": 0
+			},
+			"362": {
+				"Count": 1,
+				"Duration": 30
+			},
+			"421": {
+				"Count": 1,
+				"Duration": -1
+			},
+			"446": {
+				"Count": 1,
+				"Duration": 30
+			},
+			"447": {
+				"Count": 1,
+				"Duration": 30
+			}
+		}
+	},
+	"1021": {
+		"Title": "LEVEL54_GIFTBOX_TITLE",
+		"Description": "LEVEL54_GIFTBOX_MSG",
+		"Localized": true,
+		"LvlRestriction": 54,
+		"Items": {
+			"1022": {
+				"Count": 1,
+				"Duration": 0
+			},
+			"1032": {
+				"Count": 3,
+				"Duration": 0
+			},
+			"111": {
+				"Count": 1,
+				"Duration": 30
+			},
+			"136": {
+				"Count": 1,
+				"Duration": 30
+			},
+			"138": {
+				"Count": 1,
+				"Duration": 30
+			},
+			"173": {
+				"Count": 60,
+				"Duration": 0
+			},
+			"259": {
+				"Count": 30,
+				"Duration": 0
+			},
+			"260": {
+				"Count": 20,
+				"Duration": 0
+			},
+			"300": {
+				"Count": 20,
+				"Duration": 0
+			},
+			"343": {
+				"Count": 1,
+				"Duration": 30
+			},
+			"355": {
+				"Count": 1,
+				"Duration": -1
+			},
+			"431": {
+				"Count": 1,
+				"Duration": -1
+			}
+		}
+	},
+	"1022": {
+		"Title": "LEVEL60_GIFTBOX_TITLE",
+		"Description": "LEVEL60_GIFTBOX_MSG",
+		"Localized": true,
+		"LvlRestriction": 60,
+		"Items": {
+			"1023": {
+				"Count": 1,
+				"Duration": 0
+			},
+			"1032": {
+				"Count": 3,
+				"Duration": 0
+			},
+			"173": {
+				"Count": 65,
+				"Duration": 0
+			},
+			"259": {
+				"Count": 30,
+				"Duration": 0
+			},
+			"260": {
+				"Count": 20,
+				"Duration": 0
+			},
+			"300": {
+				"Count": 20,
+				"Duration": 0
+			},
+			"382": {
+				"Count": 1,
+				"Duration": -1
+			},
+			"55": {
+				"Count": 1,
+				"Duration": 30
+			},
+			"8": {
+				"Count": 1,
+				"Duration": -1
+			}
+		}
+	},
+	"1023": {
+		"Title": "LEVEL66_GIFTBOX_TITLE",
+		"Description": "LEVEL66_GIFTBOX_MSG",
+		"Localized": true,
+		"LvlRestriction": 66,
+		"Items": {
+			"1024": {
+				"Count": 1,
+				"Duration": 0
+			},
+			"1032": {
+				"Count": 5,
+				"Duration": 0
+			},
+			"160": {
+				"Count": 1,
+				"Duration": -1
+			},
+			"173": {
+				"Count": 70,
+				"Duration": 0
+			},
+			"212": {
+				"Count": 1,
+				"Duration": -1
+			},
+			"237": {
+				"Count": 1,
+				"Duration": 30
+			},
+			"259": {
+				"Count": 50,
+				"Duration": 0
+			},
+			"260": {
+				"Count": 50,
+				"Duration": 0
+			},
+			"300": {
+				"Count": 50,
+				"Duration": 0
+			},
+			"371": {
+				"Count": 1,
+				"Duration": -1
+			},
+			"434": {
+				"Count": 1,
+				"Duration": -1
+			}
+		}
+	},
+	"1024": {
+		"Title": "LEVEL72_GIFTBOX_TITLE",
+		"Description": "LEVEL72_GIFTBOX_MSG",
+		"Localized": true,
+		"LvlRestriction": 72,
+		"Items": {
+			"1032": {
+				"Count": 10,
+				"Duration": 0
+			},
+			"136": {
+				"Count": 1,
+				"Duration": 100
+			},
+			"137": {
+				"Count": 1,
+				"Duration": 100
+			},
+			"138": {
+				"Count": 1,
+				"Duration": 100
+			},
+			"173": {
+				"Count": 72,
+				"Duration": 0
+			},
+			"245": {
+				"Count": 1,
+				"Duration": -1
+			},
+			"249": {
+				"Count": 1,
+				"Duration": -1
+			},
+			"252": {
+				"Count": 1,
+				"Duration": 100
+			},
+			"259": {
+				"Count": 100,
+				"Duration": 0
+			},
+			"260": {
+				"Count": 100,
+				"Duration": 0
+			},
+			"270": {
+				"Count": 1,
+				"Duration": -1
+			},
+			"300": {
+				"Count": 100,
+				"Duration": 0
+			},
+			"320": {
+				"Count": 1,
+				"Duration": -1
+			},
+			"321": {
+				"Count": 1,
+				"Duration": -1
+			},
+			"383": {
+				"Count": 1,
+				"Duration": -1
+			},
+			"397": {
+				"Count": 1,
+				"Duration": -1
+			},
+			"452": {
+				"Count": 1,
+				"Duration": -1
+			}
+		}
+	},
+	"1027": {
+		"Title": "ExpCoupon_TITLE",
+		"Description": "ExpCoupon_MSG",
+		"Localized": true,
+		"Exp": [
+			500,
+			1000,
+			2000
+		]
+	},
+	"1028": {
+		"Title": "ExpCoupon_TITLE",
+		"Description": "ExpCoupon_MSG",
+		"Localized": true,
+		"Exp": [
+			1000,
+			2000,
+			4000
+		]
+	},
+	"1029": {
+		"Title": "ExpCoupon_TITLE",
+		"Description": "ExpCoupon_MSG",
+		"Localized": true,
+		"Exp": [
+			2000,
+			4000,
+			8000
+		]
+	},
+	"1030": {
+		"Title": "PntCoupon_TITLE",
+		"Description": "PntCoupon_MSG",
+		"Localized": true,
+		"Points": [
+			250,
+			500,
+			1000
+		]
+	},
+	"1031": {
+		"Title": "PntCoupon_TITLE",
+		"Description": "PntCoupon_MSG",
+		"Localized": true,
+		"Points": [
+			500,
+			1000,
+			2000
+		]
+	},
+	"1032": {
+		"Title": "PntCoupon_TITLE",
+		"Description": "PntCoupon_MSG",
+		"Localized": true,
+		"Points": [
+			1000,
+			2000,
+			4000
+		]
+	},
+	"2189": {
+		"Title": "transbox_weapon_TITLE",
+		"Description": "transbox_weapon_MSG",
+		"Localized": true,
+		"Items": {
+			"8084": {
+				"Count": 1,
+				"Duration": 0
+			},
+			"8085": {
+				"Count": 1,
+				"Duration": 0
+			},
+			"8167": {
+				"Count": 1,
+				"Duration": 0
+			},
+			"943": {
+				"Count": 1,
+				"Duration": 0
+			},
+			"944": {
+				"Count": 1,
+				"Duration": 0
+			}
+		}
+	},
+	"2214": {
+		"Title": "Parts Weapon Selection Box",
+		"Description": "You obtained the following item from the Parts Weapon Selection Box.",
+		"Select": true,
+		"Items": {
+			"270": {
+				"Count": 1,
+				"Duration": 0
+			},
+			"363": {
+				"Count": 1,
+				"Duration": 0
+			},
+			"495": {
+				"Count": 1,
+				"Duration": 0
+			},
+			"504": {
+				"Count": 1,
+				"Duration": 0
+			},
+			"554": {
+				"Count": 1,
+				"Duration": 0
+			},
+			"556": {
+				"Count": 1,
+				"Duration": 0
+			},
+			"703": {
+				"Count": 1,
+				"Duration": 0
+			},
+			"719": {
+				"Count": 1,
+				"Duration": 0
+			},
+			"752": {
+				"Count": 1,
+				"Duration": 0
+			},
+			"768": {
+				"Count": 1,
+				"Duration": 0
+			},
+			"769": {
+				"Count": 1,
+				"Duration": 0
+			},
+			"776": {
+				"Count": 1,
+				"Duration": 0
+			},
+			"792": {
+				"Count": 1,
+				"Duration": 0
+			},
+			"8118": {
+				"Count": 1,
+				"Duration": 0
+			},
+			"8119": {
+				"Count": 1,
+				"Duration": 0
+			},
+			"816": {
+				"Count": 1,
+				"Duration": 0
+			},
+			"8193": {
+				"Count": 1,
+				"Duration": 0
+			},
+			"849": {
+				"Count": 1,
+				"Duration": 0
+			},
+			"893": {
+				"Count": 1,
+				"Duration": 0
+			},
+			"899": {
+				"Count": 1,
+				"Duration": 0
+			},
+			"924": {
+				"Count": 1,
+				"Duration": 0
+			},
+			"928": {
+				"Count": 1,
+				"Duration": 0
+			},
+			"964": {
+				"Count": 1,
+				"Duration": 0
+			},
+			"969": {
+				"Count": 1,
+				"Duration": 0
+			},
+			"981": {
+				"Count": 1,
+				"Duration": 0
+			},
+			"983": {
+				"Count": 1,
+				"Duration": 0
+			}
+		}
+	},
+	// Zombie Scenario bonus chest reward
+	"3000": { // Normal (Regular, Light, Heavy, Voodoo, Psycho, Sting Finger, Venom Guard)
+		"Points": [ 500 ]
+	},
+	"3001": { // Medium (Juggernaut, Deimos, Ganymede)
+		"Points": [ 1500 ] 
+	},
+	"3002": { // Boss
+		"Points": [ 2500 ] 
+	},
+	"3003": { // Normal Hard
+		"Points": [ 1000 ] 
+	},
+	"3004": { // Medium Hard
+		"Points": [ 3000 ] 
+	},
+	"3005": { // Boss Hard
+		"Points": [ 5000 ] 
+	},
+	"3007": { // Normal Easy
+		"Points": [ 250 ] 
+	},
+	"3008": { // Medium Easy
+		"Points": [ 750 ] 
+	},
+	"3009": { // Boss Easy
+		"Points": [ 1250 ] 
+	},
+	"3010": { // Human Normal
+		"Points": [ 500 ] 
+	},
+	"3011": { // Human Medium
+		"Points": [ 1500 ] 
+	},
+	"3012": { // Human Boss
+		"Points": [ 2500 ] 
+	},
+	"3013": { // Human Trooper
+		"Points": [ 500 ] 
+	},
+	"3014": { // Human Ghost
+		"Points": [ 550 ] 
+	},
+	"3015": { // Human Lancer
+		"Points": [ 600 ] 
+	},
+	"3016": { // Human Titan
+		"Points": [ 650 ] 
+	},
+	"3017": { // Juggernaut
+		"Points": [ 3000 ] 
+	},
+	"3018": { // Siege Type Deimos
+		"Points": [ 3000 ]
+	},
+	"3019": { // Phobos
+		"Points": [ 3000 ] 
+	},
+	"3020": { // Siege Type Phobos
+		"Points": [ 3000 ] 
+	},
+	"3021": { // Oberon
+		"Points": [ 3000 ] 
+	}
+}
